@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Mi Primer Año - Thor🐶🦴</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Cormorant+Garamond:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Playfair Display", serif;
+            background: linear-gradient(to bottom, #d4f0fc, #ffffff);
+            color: #2a4b5f;
+            overflow-x: hidden;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .floral-ornament {
+            width: 120px;
+            height: 120px;
+            margin-bottom: 30px;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards;
+        }
+
+        /* Countdown Styles */
+        .countdown {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin: 2rem 0;
+            animation: fadeIn 2.8s ease;
+        }
+
+        .countdown-item {
+            background: #d4f0fc;
+            border: 2px solid #358fba;
+            border-radius: 15px;
+            padding: 15px 10px;
+            min-width: 70px;
+            box-shadow: 0 5px 15px rgba(53, 143, 186, 0.25);
+        }
+
+        .countdown-value {
+            font-size: 6vw;
+            font-weight: 700;
+            color: #358fba;
+            display: block;
+        }
+
+        .countdown-label {
+            font-size: 3vw;
+            color: #2a4b5f;
+            display: block;
+            margin-top: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .hero h1 {
+            font-size: 8vw;
+            color: #222;
+            margin-bottom: 1rem;
+            animation: fadeIn 1.5s ease;
+            font-weight: 400;
+        }
+
+        .hero h2 {
+            font-size: 6.5vw;
+            color: #358fba;
+            font-style: italic;
+            margin-top: 0;
+            animation: fadeIn 2s ease;
+            font-weight: 400;
+        }
+
+        .hero p {
+            font-size: 5vw;
+            color: #4a4a4a;
+            animation: fadeIn 2.5s ease;
+            margin: 1rem 0;
+        }
+
+        .heart {
+            color: #7dc9e8;
+            font-size: 7vw;
+            animation: heartbeat 1.5s infinite;
+            margin-left: 5px;
+            display: inline-block;
+            transform-origin: center;
+        }
+
+        button {
+            background-color: #7dc9e8;
+            border: 2px solid #358fba;
+            color: white;
+            padding: 15px 45px;
+            border-radius: 40px;
+            font-size: 5vw;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            animation: fadeIn 3s ease;
+            margin-top: 2rem;
+            font-family: "Playfair Display", serif;
+            box-shadow: 0 0 10px rgba(192, 192, 192, 0.6);
+        }
+
+        button:hover {
+            transform: scale(1.08);
+            box-shadow: 0 0 20px rgba(53, 143, 186, 0.6);
+        }
+
+        /* Decorative Leaves */
+        .leaf {
+            position: absolute;
+            width: 130px;
+            height: 130px;
+            background: url("https://iili.io/KpDb6ZP.png") no-repeat center/contain;
+            opacity: 0.5;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .leaf:nth-child(1) { top: 2%; left: 15%; animation-delay: 0s; }
+        .leaf:nth-child(2) { top: 17%; right: 5%; animation-delay: 2s; }
+        .leaf:nth-child(3) { bottom: 10%; left: 15%; animation-delay: 4s; }
+        .leaf:nth-child(4) { bottom: 0%; left: 55%; animation-delay: 4s; }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 10;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(240, 248, 255, 0.9);
+            backdrop-filter: blur(8px);
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.5s ease;
+            padding: 1rem;
+        }
+
+        .modal-content {
+            background: #ffffff;
+            border: 4px solid #358fba;
+            border-radius: 25px;
+            padding: 40px 20px;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            font-size: 5vw;
+            box-shadow: 0 0 25px rgba(192, 192, 192, 0.8);
+            animation: slideIn 0.4s ease;
+        }
+
+        .modal-content h2 {
+            font-size: 6vw;
+            color: #358fba;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .modal-content p {
+            font-size: 4.5vw;
+            color: #2a4b5f;
+            margin: 1rem 0;
+            line-height: 1.6;
+        }
+
+        .modal-content strong {
+            color: #358fba;
+            font-weight: 600;
+        }
+
+        .detail-item {
+            background: linear-gradient(135deg, #d4f0fc 0%, #ffffff 100%);
+            padding: 1.2rem;
+            border-radius: 15px;
+            margin: 1rem 0;
+            border-left: 4px solid #7dc9e8;
+            box-shadow: 0 0 10px rgba(192, 192, 192, 0.4);
+        }
+
+        .close {
+            margin-top: 25px;
+            padding: 15px 30px;
+            background: #7dc9e8;
+            border: 2px solid #358fba;
+            color: white;
+            border-radius: 30px;
+            font-size: 5vw;
+            cursor: pointer;
+            font-family: "Playfair Display", serif;
+            box-shadow: 0 0 10px rgba(192, 192, 192, 0.6);
+        }
+
+        .close:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(53, 143, 186, 0.5);
+        }
+
+        .divider {
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(to right, transparent, #c0c0c0, transparent);
+            margin: 1.5rem auto;
+        }
+
+        /* Input Styles */
+        input[type="text"] {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #358fba;
+            border-radius: 15px;
+            font-size: 4.5vw;
+            font-family: "Playfair Display", serif;
+            margin: 0.8rem 0;
+            background: #d4f0fc;
+            color: #2a4b5f;
+            box-shadow: 0 0 8px rgba(192, 192, 192, 0.4);
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #7dc9e8;
+            box-shadow: 0 0 12px rgba(125, 201, 232, 0.6);
+        }
+
+        input[type="text"]::placeholder {
+            color: #6f8ea2;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* Responsive */
+        @media (min-width: 768px) {
+            .hero h1 { font-size: 4rem; }
+            .hero h2 { font-size: 3rem; }
+            .hero p { font-size: 1.5rem; }
+            button, .close { font-size: 1.2rem; }
+            .modal-content h2 { font-size: 2rem; }
+            .modal-content p { font-size: 1.1rem; }
+            .countdown-item { min-width: 90px; padding: 20px 15px; }
+            .countdown-value { font-size: 2.5rem; }
+            .countdown-label { font-size: 0.9rem; }
+            input[type="text"] { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Decorative Leaves -->
+    <div class="leaf"></div>
+    <div class="leaf"></div>
+    <div class="leaf"></div>
+    <div class="leaf"></div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Mi Primer Año</h1>
+        <h2>Thor</h2>
+        <div class="divider"></div>
+        <p>6 de Diciembre <span class="heart">🦴🐾</span></p>
+        
+        <!-- Countdown -->
+        <div class="countdown">
+            <div class="countdown-item">
+                <span class="countdown-value" id="days">0</span>
+                <span class="countdown-label">Días</span>
+            </div>
+            <div class="countdown-item">
+                <span class="countdown-value" id="hours">0</span>
+                <span class="countdown-label">Hrs</span>
+            </div>
+            <div class="countdown-item">
+                <span class="countdown-value" id="minutes">0</span>
+                <span class="countdown-label">Min</span>
+            </div>
+            <div class="countdown-item">
+                <span class="countdown-value" id="seconds">0</span>
+                <span class="countdown-label">Seg</span>
+            </div>
+        </div>
+        
+        <button onclick="openModal('modal1')">Ver más</button>
+    </section>
+
+    <!-- Modal 1: Información del evento -->
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <h2>Información del evento</h2>
+            <div class="divider"></div>
+            
+            <div class="detail-item">
+                <p><strong>📍 Lugar:</strong> Jose Marmol 460</p>
+                <a href="https://maps.app.goo.gl/7SzmNqUUSD7GpQoD8" target="_blank" style="text-decoration: none;">
+                    <button class="close" style="margin-top: 15px; font-size: 4vw;">📍 Cómo llegar</button>
+                </a>
+            </div>
+            
+            <div class="detail-item">
+                <p><strong>🕐 Hora:</strong> 15:30 hs</p>
+            </div>
+            
+            <button class="close" onclick="closeModal('modal1'); openModal('modal2')">
+                Siguiente ➜
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal 2: Qué llevar / Confirmación -->
+    <div id="modal2" class="modal">
+        <div class="modal-content">
+            <h2>Qué llevar</h2>
+            <div class="divider"></div>
+            
+            <div class="detail-item">
+                <p>🩱 No olvides traer tu ropa de baño (Malla y toalla)</p>
+            </div>
+            
+            <div class="detail-item">
+                <p>🎁 Tu presencia es el mejor regalo 💖</p>
+            </div>
+            
+            <button class="close" onclick="closeModal('modal2'); openModal('modal3')">
+                Siguiente ➜
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal 3: Formulario de Confirmación -->
+    <div id="modal3" class="modal">
+        <div class="modal-content">
+            <h2>Confirmación de Asistencia</h2>
+            <div class="divider"></div>
+            
+            <input type="text" id="nombreApellido" placeholder="Nombre y Apellido" />
+            
+            <button class="close" onclick="confirmarAsistencia()">
+                Confirmar asistencia
+            </button>
+            <br />
+            <button class="close" onclick="closeModal('modal3')">Cerrar</button>
+        </div>
+    </div>
+
+    <script>
+        function openModal(id) {
+            document.getElementById(id).style.display = "flex";
+        }
+        function closeModal(id) {
+            document.getElementById(id).style.display = "none";
+        }
+
+        function confirmarAsistencia() {
+            const nombre = document.getElementById('nombreApellido').value.trim();
+            
+            if (!nombre) {
+                return;
+            }
+            
+            // Crear mensaje base
+            let mensaje = `Holaaaa! quiero confirmar mi asistencia al cumple de Thor🐶🦴. Soy ${nombre}.`;
+            
+            // Codificar el mensaje para URL
+            const mensajeCodificado = encodeURIComponent(mensaje);
+            
+            // Abre WhatsApp con el número correcto
+            window.open(`https://wa.me/5493564679567?text=${mensajeCodificado}`, '_blank');
+            
+            closeModal('modal3');
+        }
+
+        // Countdown Timer
+        function updateCountdown() {
+            // Fecha del evento: 6 de Diciembre de 2025, 15:30 (hora Argentina UTC-3)
+            const eventDate = new Date('2025-12-06T15:30:00-03:00');
+            const now = new Date();
+            
+            const difference = eventDate - now;
+            
+            if (difference > 0) {
+                const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+                
+                document.getElementById('days').textContent = days;
+                document.getElementById('hours').textContent = hours;
+                document.getElementById('minutes').textContent = minutes;
+                document.getElementById('seconds').textContent = seconds;
+            } else {
+                document.getElementById('days').textContent = '0';
+                document.getElementById('hours').textContent = '0';
+                document.getElementById('minutes').textContent = '0';
+                document.getElementById('seconds').textContent = '0';
+            }
+        }
+
+        // Actualizar countdown cada segundo
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>
